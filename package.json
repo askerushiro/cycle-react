@@ -57,6 +57,7 @@
     "compile-cjs": "tsc --module commonjs --outDir ./lib/cjs",
     "compile-es6": "echo 'TODO' : tsc --module es6 --outDir ./lib/es6",
     "coverage": "c8 --reporter=lcov npm test",
+    "prepare": "npm run compile",
     "prepublishOnly": "npm run compile",
     "test": "mocha test/*.ts --require ts-node/register --recursive"
   }
