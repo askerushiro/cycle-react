@@ -17,11 +17,11 @@ type PropsLike<P> = P & PropsExtensions & Attributes;
 
 type Children = string | Array<ReactNode>;
 
-function createElementSpreading(
-  type: ElementType<InputHTMLAttributes<HTMLInputElement>> | keyof ReactHTML,
-  props: PropsLike<InputHTMLAttributes<HTMLInputElement>> | null,
+function createElementSpreading<P extends InputHTMLAttributes<HTMLInputElement> = any>(
+  type: ElementType<P> | keyof ReactHTML,
+  props: PropsLike<P> | null,
   children: Children
-): ReactElement<InputHTMLAttributes<HTMLInputElement>> {
+): ReactElement<P> {
   if (typeof children === 'string') {
     return createElement(type, props, children);
   } else {
@@ -29,10 +29,10 @@ function createElementSpreading(
   }
 }
 
-function hyperscriptProps<P = any>(
-  type: ElementType<InputHTMLAttributes<HTMLInputElement>> | keyof ReactHTML,
-  props: PropsLike<InputHTMLAttributes<HTMLInputElement>>
-): ReactElement<InputHTMLAttributes<HTMLInputElement>> {
+function hyperscriptProps<P extends InputHTMLAttributes<HTMLInputElement> = any>(
+  type: ElementType<P> | keyof ReactHTML,
+  props: PropsLike<P>
+): ReactElement<P> {
   if (!props.sel) {
     return createElement(type, props);
   } else {
@@ -40,18 +40,18 @@ function hyperscriptProps<P = any>(
   }
 }
 
-function hyperscriptChildren(
-  type: ElementType<InputHTMLAttributes<HTMLInputElement>> | keyof ReactHTML,
+function hyperscriptChildren<P extends InputHTMLAttributes<HTMLInputElement> = any>(
+  type: ElementType<P> | keyof ReactHTML,
   children: Children
-): ReactElement<InputHTMLAttributes<HTMLInputElement>> {
+): ReactElement<P> {
   return createElementSpreading(type, null, children);
 }
 
-function hyperscriptPropsChildren(
-  type: ElementType<InputHTMLAttributes<HTMLInputElement>> | keyof ReactHTML,
-  props: PropsLike<InputHTMLAttributes<HTMLInputElement>>,
+function hyperscriptPropsChildren<P extends InputHTMLAttributes<HTMLInputElement> = any>(
+  type: ElementType<P> | keyof ReactHTML,
+  props: PropsLike<P>,
   children: Children
-): ReactElement<InputHTMLAttributes<HTMLInputElement>> {
+): ReactElement<P> {
   if (!props.sel) {
     return createElementSpreading(type, props, children);
   } else {
@@ -59,11 +59,11 @@ function hyperscriptPropsChildren(
   }
 }
 
-export function h(
-  type: ElementType<InputHTMLAttributes<HTMLInputElement>> | keyof ReactHTML,
-  a?: PropsLike<InputHTMLAttributes<HTMLInputElement>> | Children,
+export function h<P extends InputHTMLAttributes<HTMLInputElement> = any>(
+  type: ElementType<P> | keyof ReactHTML,
+  a?: PropsLike<P> | Children,
   b?: Children
-): ReactElement<InputHTMLAttributes<HTMLInputElement>> {
+): ReactElement<P> {
   if (a === void 0 && b === void 0) {
     return createElement(type, null);
   }
