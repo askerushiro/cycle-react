@@ -10,6 +10,7 @@ export function incorporate(type: any) {
     wrapperComponents.set(
       type,
       forwardRef<any, any>((props, ref) =>
+        // @ts-ignore: Temporary
         createElement(ScopeContext.Consumer, null, (scope: Scope) =>
           createElement(Incorporator, {
             targetProps: props,
